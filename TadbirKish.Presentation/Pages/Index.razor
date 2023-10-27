@@ -1,0 +1,145 @@
+﻿@page "/"
+
+@using TadbirKish.Application.CalculationCovers.Commands;
+@using TadbirKish.Application.RequestRegistrations.Commands;
+@using TadbirKish.Domain.Models;
+@using TadbirKish.Persistence.ViewModels;
+
+@inject NavigationManager NavigationManager
+@inject Services.CovergeService CovergeService
+@inject Services.CalculationCoverService CalculationCoverService
+
+<PageTitle>Index</PageTitle>
+
+<h1>تدبیر کیش</h1>
+
+<br>
+<EditForm Model="Model" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+
+    <div class="form-horizontal">
+        <div class="form-group row">
+            <div class="col-md-8">
+            <label for="Username" class="control-label col-md-4">موضوع </label>
+                <input id="Username" name="Username" class="form-control" @bind="Model.Subject" />
+                <div class="form-control-validation">
+                    <ValidationMessage For="() => Model.Subject" />
+                </div>
+            </div>
+        </div>
+     
+        <div class="form-group row">
+
+            @foreach (var item in Model.CreateCalculationCoverCommands)
+        {
+                
+                <div class="col-md-8">
+                    <input type="checkbox" id="Selected" name="Selected" @bind=item.Selected  />
+
+                    <label for="Username" class="control-label col-md-4">@item.Name </label>
+                    <div class="form-control-validation">
+                        <ValidationMessage For="() => item.Name" />
+                    </div>
+                </div>
+                @if (item.Selected)
+                {
+                    <div class="col-md-8">
+                        <label for="Username" class="control-label col-md-4">سرمایه </label>
+                        <input id="Username" name="Username" class="form-control" @bind="item.Fund" />
+                        <div class="form-control-validation">
+                            <ValidationMessage For="() => item.Fund" />
+                        </div>
+                    </div>
+                }
+               
+        }
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">ذخیره</button>
+        </div>
+    </div>
+     <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">نام</th>
+                    <th scope="col">سرمایه</th>
+                    <th scope="col">محاسبه شده</th>
+               
+                </tr>
+            </thead>
+            <tbody>
+               
+                @foreach (var item in DisplayCalculationCovers)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Fund</td>
+                        <td>@item.Calculated</td>
+                    </tr>
+                }
+                <tr>
+                    <th colspan="2">جمع</th>
+                    <th>@TotalCalculated</th>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+
+</EditForm>
+
+
+@code {
+    public CreateRequestRegistrationCommand Model = new CreateRequestRegistrationCommand();
+
+    public IList <GetCalculationCoversQueryResponseViewModel> DisplayCalculationCovers =
+    new  List< GetCalculationCoversQueryResponseViewModel>();
+
+    private double TotalCalculated ;
+
+    public IList<GetCoveragesQueryResponseViewModel> ListCoverage = 
+    new List<GetCoveragesQueryResponseViewModel>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListCoverage =
+        await CovergeService.GetAsync();
+
+
+        foreach (var item in ListCoverage)
+        {
+            CreateCalculationCoverCommand temp = new CreateCalculationCoverCommand();
+            temp.Rate = item.Rate;
+            temp.Code = item.Code;
+            temp.Name = item.Name;
+            Model.CreateCalculationCoverCommands.Add(temp);
+        }
+    }
+
+    private async Task Submit()
+    {
+        var Result =
+         await
+          CovergeService.PostAsync
+         (Model);
+
+        DisplayCalculationCovers = await CalculationCoverService.GetAsync(Result.ToString());
+
+        TotalCalculated = 0;
+
+        foreach (var item in DisplayCalculationCovers)
+        {
+            TotalCalculated = TotalCalculated + item.Calculated;
+        }
+
+    }
+    protected override bool ShouldRender()
+    {
+        return base.ShouldRender();
+    }
+ 
+}
+
+
