@@ -17,6 +17,7 @@ namespace LoggingMicroservice.Api.Controllers
         {
         }
 
+
         #region Get (Get Coverages)
         [Microsoft.AspNetCore.Mvc.HttpGet()]
         public async Task<ActionResult<IEnumerable<GetCalculationCoversQueryResponseViewModel>>>
