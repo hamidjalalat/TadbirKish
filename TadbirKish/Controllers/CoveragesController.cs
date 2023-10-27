@@ -16,34 +16,6 @@ namespace LoggingMicroservice.Api.Controllers
         {
         }
 
-        //#region Post (Create user)
-        //[Microsoft.AspNetCore.Mvc.HttpPost(template: "/CreateUser")]
-
-        //public async Task<Microsoft.AspNetCore.Mvc.IActionResult>
-        //    CreateUser(CreateRequestRegistrationCommand request)
-        //{
-        //    var result =
-        //        await Mediator.Send(request);
-
-        //    return FluentResult(result: result);
-        //}
-        //#endregion /Post (Create user)
-
-        //#region Get (Get Coverages)
-        //[Microsoft.AspNetCore.Mvc.HttpGet(template: "/Coverages")]
-        //public async Task<IActionResult> GetAllCoverage()
-        //{
-        //    var request =
-        //        new GetCoveragesQuery();
-
-
-        //    var result =
-        //        await Mediator.Send(request);
-
-        //    return FluentResult(result: result);
-        //}
-        //#endregion Get (Get Coverages)
-
         #region Get (Get Coverages)
         [Microsoft.AspNetCore.Mvc.HttpGet()]
         public async Task <ActionResult<IEnumerable<GetCoveragesQueryResponseViewModel>>>

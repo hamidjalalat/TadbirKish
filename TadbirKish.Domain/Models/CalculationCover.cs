@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -9,10 +10,10 @@ namespace TadbirKish.Domain.Models
 {
     public class CalculationCover: Base.Entity
     {
-        [System.ComponentModel.DataAnnotations.Required]
+        [Required]
         public int CoverageCode { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
+        [Required]
         public double Fund { get; set; }
 
         public double Calculated { get; set; }

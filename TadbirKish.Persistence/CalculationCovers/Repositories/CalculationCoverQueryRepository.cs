@@ -15,16 +15,12 @@ namespace TadbirKish.Persistence.CalculationCovers.Repositories
 
         }
 
-        public
-            async
-			Task
+        public async Task
 			<IList<GetCalculationCoversQueryResponseViewModel>>
 			GetSomeAsync(Guid requestRegistrationId)
 		{
 
-               var result =
-				await
-				DbSet
+               var result =await DbSet
 			.Where(C=>C.RequestRegistrationId == requestRegistrationId)
 				.Select(current => new ViewModels.GetCalculationCoversQueryResponseViewModel()
 				{

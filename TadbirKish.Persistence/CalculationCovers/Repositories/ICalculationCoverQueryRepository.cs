@@ -3,10 +3,10 @@ using TadbirKish.Persistence.ViewModels;
 
 namespace TadbirKish.Persistence.CalculationCovers.Repositories
 {
-	public interface ICalculationCoverQueryRepository : TadbirKish.Persistence.Base.IQueryRepository<CalculationCover>
+	public interface ICalculationCoverQueryRepository : 
+		TadbirKish.Persistence.Base.IQueryRepository<CalculationCover>
 	{
-		Task
-			<IList<GetCalculationCoversQueryResponseViewModel>>
+		Task<IList<GetCalculationCoversQueryResponseViewModel>>
 			GetSomeAsync(Guid requestRegistrationId);
 
      

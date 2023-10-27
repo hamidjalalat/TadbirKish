@@ -22,13 +22,9 @@ namespace TadbirKish.Application.Coverages.CommandHandlers
 
 		
 
-		public
-			async
-		Task
-			<FluentResults.Result
-				<IEnumerable
-				<GetCoveragesQueryResponseViewModel>>>
-			Handle(Queries.GetCoveragesQuery request, System.Threading.CancellationToken cancellationToken)
+		public async Task
+			<FluentResults.Result<IEnumerable<GetCoveragesQueryResponseViewModel>>>
+			Handle(Queries.GetCoveragesQuery request, CancellationToken cancellationToken)
 		{
 			var result =
 				new FluentResults.Result

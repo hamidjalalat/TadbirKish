@@ -12,10 +12,7 @@ namespace TadbirKish.Persistence.Coverages.Repositories
 		{
 		}
 
-		public
-			async
-			Task
-			<IList<GetCoveragesQueryResponseViewModel>>
+		public async Task<IList<GetCoveragesQueryResponseViewModel>>
 			GetSomeAsync()
 		{
 
@@ -32,17 +29,11 @@ namespace TadbirKish.Persistence.Coverages.Repositories
 				.ToListAsync()
 				;
 
-
 			return result;
 		}
 
-	
-
-        //موقت تا زمانی که بانک اطلاعاتی راه بندازم
         public async Task<GetCoveragesQueryResponseViewModel> GetByCodeAsync(int code)
         {
-		
-
 			var result =
 			await
 			DbSet.Where(C => C.Code == code).

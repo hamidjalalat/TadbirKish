@@ -21,10 +21,7 @@ namespace TadbirKish.Application.RequestRegistrations.CommandHandlers
 
 		
 
-		public
-			async
-			System.Threading.Tasks.Task
-			<FluentResults.Result<GetRequestRegistrationsQueryResponseViewModel>>
+		public async Task<FluentResults.Result<GetRequestRegistrationsQueryResponseViewModel>>
 			Handle(Queries.GetBySubjectQuery request, System.Threading.CancellationToken cancellationToken)
 		{
 			var result =
@@ -34,9 +31,7 @@ namespace TadbirKish.Application.RequestRegistrations.CommandHandlers
 			try
 			{
 
-				var RequestRegistrations =
-					await
-					UnitOfWork.RequestRegistrations
+				var RequestRegistrations =await UnitOfWork.RequestRegistrations
                     .GetBySubjectAsync(Subject: request.Subject);
 					;
 

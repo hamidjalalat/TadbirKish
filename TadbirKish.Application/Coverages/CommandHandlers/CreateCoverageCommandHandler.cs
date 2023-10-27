@@ -24,7 +24,7 @@ namespace TadbirKish.Application.Coverages.CommandHandlers
 
 		public async Task<FluentResults.Result<System.Guid>>
 			Handle(Commands.CreateCoverageCommand request,
-			System.Threading.CancellationToken cancellationToken)
+			CancellationToken cancellationToken)
 		{
 			var result =
 				new FluentResults.Result<System.Guid>();
@@ -32,15 +32,11 @@ namespace TadbirKish.Application.Coverages.CommandHandlers
 			try
 			{
                 var Coverage = Mapper.Map<Domain.Models.Coverage>(source: request);
-                // **************************************************
-
-                // **************************************************
+           
                 await UnitOfWork.Coverages.InsertAsync(entity: Coverage);
 
                 await UnitOfWork.SaveAsync();
-                // **************************************************
-
-                // **************************************************
+             
                 result.WithValue(value: Coverage.Id);
                 string successInsert =
                     string.Format("عملیات درج با موفقیت انجام شد");

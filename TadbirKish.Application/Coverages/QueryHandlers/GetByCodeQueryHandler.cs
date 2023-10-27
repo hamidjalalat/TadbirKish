@@ -21,11 +21,9 @@ namespace TadbirKish.Application.Coverages.CommandHandlers
 
 		
 
-		public
-			async
-			System.Threading.Tasks.Task
+		public async Task
 			<FluentResults.Result<GetCoveragesQueryResponseViewModel>>
-			Handle(Queries.GetByCodeQuery request, System.Threading.CancellationToken cancellationToken)
+			Handle(Queries.GetByCodeQuery request, CancellationToken cancellationToken)
 		{
 			var result =
 				new FluentResults.Result
@@ -34,9 +32,7 @@ namespace TadbirKish.Application.Coverages.CommandHandlers
 			try
 			{
 
-				var Coverages =
-					await
-					UnitOfWork.Coverages
+				var Coverages = await UnitOfWork.Coverages
                     .GetByCodeAsync(code: request.Code);
 					;
 

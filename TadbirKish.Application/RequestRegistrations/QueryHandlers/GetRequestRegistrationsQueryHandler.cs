@@ -2,9 +2,8 @@
 
 namespace TadbirKish.Application.RequestRegistrations.CommandHandlers
 {
-	public class GetRequestRegistrationsQueryHandler : object,
-		Mediator.IRequestHandler
-		<Queries.GetRequestRegistrationsQuery, System.Collections.Generic.IEnumerable<GetRequestRegistrationsQueryResponseViewModel>>
+	public class GetRequestRegistrationsQueryHandler :Mediator.IRequestHandler
+		<Queries.GetRequestRegistrationsQuery, IEnumerable<GetRequestRegistrationsQueryResponseViewModel>>
 	{
 		public GetRequestRegistrationsQueryHandler
 			(
@@ -22,28 +21,21 @@ namespace TadbirKish.Application.RequestRegistrations.CommandHandlers
 
 		
 
-		public
-			async
-		Task
-			<FluentResults.Result
-				<IEnumerable
-				<GetRequestRegistrationsQueryResponseViewModel>>>
-			Handle(Queries.GetRequestRegistrationsQuery request, System.Threading.CancellationToken cancellationToken)
+		public async Task<FluentResults.Result
+				<IEnumerable<GetRequestRegistrationsQueryResponseViewModel>>>
+			Handle(Queries.GetRequestRegistrationsQuery request, CancellationToken cancellationToken)
 		{
-			var result =
-				new FluentResults.Result
+			var result =new FluentResults.Result
 				<System.Collections.Generic.IEnumerable
 				<GetRequestRegistrationsQueryResponseViewModel>>();
 
 			try
 			{
 			
-				var RequestRegistrations =
-					await
+				var RequestRegistrations =await
 					UnitOfWork.RequestRegistrations
                     .GetSomeAsync(count: request.Count.Value)
 					;
-			
 
 				result.WithValue(value: RequestRegistrations);
 			

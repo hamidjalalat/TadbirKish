@@ -4,7 +4,7 @@ namespace TadbirKish.Application.RequestRegistrations.Queries
 {
 	public class GetRequestRegistrationsQuery : object,
 		Mediator.IRequest
-		<System.Collections.Generic.IEnumerable<GetRequestRegistrationsQueryResponseViewModel>>
+		<IEnumerable<GetRequestRegistrationsQueryResponseViewModel>>
 	{
 		public GetRequestRegistrationsQuery() : base()
 		{

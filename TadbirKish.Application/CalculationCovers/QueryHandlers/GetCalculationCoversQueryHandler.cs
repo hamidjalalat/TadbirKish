@@ -6,7 +6,7 @@ namespace TadbirKish.Application.CalculationCovers.CommandHandlers
 {
 	public class GetCalculationCoversQueryHandler : object,
 		Mediator.IRequestHandler
-		<Queries.GetCalculationCoversQuery, System.Collections.Generic.IEnumerable<GetCalculationCoversQueryResponseViewModel>>
+		<Queries.GetCalculationCoversQuery, IEnumerable<GetCalculationCoversQueryResponseViewModel>>
 	{
 		public GetCalculationCoversQueryHandler
             (
@@ -22,32 +22,20 @@ namespace TadbirKish.Application.CalculationCovers.CommandHandlers
 
 		protected TadbirKish.Persistence.IQueryUnitOfWork UnitOfWork { get; }
 
-		
-
-		public
-			async
-		Task
-			<FluentResults.Result
-				<IEnumerable
-				<GetCalculationCoversQueryResponseViewModel>>>
+		public async Task<FluentResults.Result<IEnumerable<GetCalculationCoversQueryResponseViewModel>>>
 			Handle(Queries.GetCalculationCoversQuery request, System.Threading.CancellationToken cancellationToken)
 		{
 			var result =
 				new FluentResults.Result
-				<System.Collections.Generic.IEnumerable
-				<GetCalculationCoversQueryResponseViewModel>>();
+				<IEnumerable<GetCalculationCoversQueryResponseViewModel>>();
 
 			try
 			{
-                var Coverages =
-                await
-                UnitOfWork.Coverages
+                var Coverages = await UnitOfWork.Coverages
                 .GetSomeAsync()
                 ;
 
-                var CalculationCovers =
-					await
-                UnitOfWork.CalculationCovers
+                var CalculationCovers =await UnitOfWork.CalculationCovers
                     .GetSomeAsync(requestRegistrationId:request.RequestRegistrationId)
 					;
 				foreach (var item in CalculationCovers)
@@ -60,8 +48,6 @@ namespace TadbirKish.Application.CalculationCovers.CommandHandlers
 			}
 			catch (System.Exception ex)
 			{
-			
-
 				result.WithError
 					(errorMessage: ex.Message);
 			}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace TadbirKish.Domain.Models
         {
         }
          
-        [System.ComponentModel.DataAnnotations.Required]
+        [Required]
         public string Subject { get; set; }
 
         public IList<CalculationCover> CalculationCovers { get; set; }
